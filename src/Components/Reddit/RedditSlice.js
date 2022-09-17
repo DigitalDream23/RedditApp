@@ -18,7 +18,7 @@ async(postId)=>{
 
 export const fetchSearchResults = createAsyncThunk('reddit/getSearchPosts', 
 async (term) => {
-    const response = await fetch(`https://www.reddit.com/search?q=${term}`, {mode:'opaque'});
+    const response = await fetch(`https://www.reddit.com/search?q=${term}`);
     const json = await response.json();
     console.log(json);
     return json.data.children.map(post => post.data);
