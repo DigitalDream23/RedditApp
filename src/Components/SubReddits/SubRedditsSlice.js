@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { setCurrentSubreddit } from "../Reddit/RedditSlice";
+
 
 
 
@@ -37,5 +39,14 @@ const subredditsSlice = createSlice({
 });
 
 
+
+
 export default subredditsSlice.reducer;
 
+export const selectTargetSubredditIcon = (state, currentSubreddit) => {
+    for(let item of state.subreddits.subreddits){
+        if(item.display_name === currentSubreddit){
+            return item.icon_img
+        }
+    }
+};

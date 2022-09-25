@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 
 export const fetchSubredditPosts = createAsyncThunk('reddit/getSubredditPosts',
@@ -11,16 +12,15 @@ export const fetchSubredditPosts = createAsyncThunk('reddit/getSubredditPosts',
 
 export const fetchPostComments = createAsyncThunk('reddit/getPostComments',
 async(postId)=>{
-    const response = await fetch(`https://www.reddit.com/comments/${postId}`);
-    const json = response.json();
+    const response = await fetch(`https://www.reddit.com/comments/${postId}.json`);
+    const json = await response.json();
     return json
 })
 
-export const fetchSearchResults = createAsyncThunk('reddit/getSearchPosts', 
-async (term) => {
-    const response = await fetch(`https://www.reddit.com/search?q=${term}`);
+export const fetchSearchResults = createAsyncThunk('reddit/getSearchResults', 
+async (searchTerm) => {
+    const response = await fetch(`https://www.reddit.com/search.json?q=${searchTerm}`);
     const json = await response.json();
-    console.log(json);
     return json.data.children.map(post => post.data);
     
 });
@@ -30,10 +30,13 @@ const redditSlice = createSlice({
     name: 'reddit',
     initialState:{
         posts:[],
+        comments:[],
+        searchTerm:'',
+        currentSubreddit:'AskReddit',
         isLoading: false,
         hasError: false,
-        searchTerm:'',
-        currentSubreddit:'AskReddit'
+        isLoadingComments: false,
+        hasErrorComments: false
     },
     reducers: {
         setCurrentSubreddit: (state, action)=>{
@@ -47,7 +50,7 @@ const redditSlice = createSlice({
         },
         clearSearchTerm: (state)=>{
             state.searchTerm = ''
-        }
+        },
     },
     extraReducers:{
         [fetchSubredditPosts.pending]:(state)=>{
@@ -77,6 +80,19 @@ const redditSlice = createSlice({
         [fetchSearchResults.rejected]:(state)=>{
             state.isLoading = false;
             state.hasError = true;
+        },
+        [fetchPostComments.pending]:(state)=>{
+            state.isLoadingComments = true;
+            state.hasErrorComments = false;
+        },
+        [fetchPostComments.fulfilled]:(state, action)=>{
+            state.isLoadingComments = false;
+            state.hasErrorComments = false;
+            state.comments = action.payload;
+        },
+        [fetchPostComments.rejected]:(state)=>{
+            state.isLoadingComments = false;
+            state.hasErrorComments = true;
         }
     }
 })
@@ -89,6 +105,7 @@ export const {
     clearSearchTerm
     
   } = redditSlice.actions;
+
   
   export default redditSlice.reducer;
 
