@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
+
 
 
 export const fetchSubredditPosts = createAsyncThunk('reddit/getSubredditPosts',
@@ -11,18 +11,17 @@ export const fetchSubredditPosts = createAsyncThunk('reddit/getSubredditPosts',
 
 
 export const fetchPostComments = createAsyncThunk('reddit/getPostComments',
-async(postId)=>{
-    const response = await fetch(`https://www.reddit.com/comments/${postId}.json`);
+async(id)=>{
+    const response = await fetch(`https://www.reddit.com/comments/${id}.json`);
     const json = await response.json();
-    return json
+    return json[1].data.children.map(comment=> comment.data)
 })
 
 export const fetchSearchResults = createAsyncThunk('reddit/getSearchResults', 
 async (searchTerm) => {
     const response = await fetch(`https://www.reddit.com/search.json?q=${searchTerm}`);
     const json = await response.json();
-    return json.data.children.map(post => post.data);
-    
+    return json[1].data.children;
 });
 
 
@@ -31,6 +30,7 @@ const redditSlice = createSlice({
     initialState:{
         posts:[],
         comments:[],
+        displayComments:[],
         searchTerm:'',
         currentSubreddit:'AskReddit',
         isLoading: false,
@@ -51,6 +51,17 @@ const redditSlice = createSlice({
         clearSearchTerm: (state)=>{
             state.searchTerm = ''
         },
+        setComments:(state, action)=>{
+            state.comments = action.payload
+        },
+        setDisplayComments: (state, action)=>{
+            state.displayComments=action.payload
+        },
+        clearComments: (state)=>{
+            state.comments=[];
+            state.displayComments=[];
+
+        }
     },
     extraReducers:{
         [fetchSubredditPosts.pending]:(state)=>{
@@ -102,7 +113,9 @@ export const {
     setPosts,
     setCurrentSubreddit,
     setSearchTerm,
-    clearSearchTerm
+    clearSearchTerm,
+    setDisplayComments,
+    clearComments
     
   } = redditSlice.actions;
 

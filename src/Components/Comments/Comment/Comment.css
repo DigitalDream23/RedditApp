@@ -1,0 +1,42 @@
+*{
+    box-sizing: border-box;
+}
+
+.comment{
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.comment-author{
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    margin-top: 0px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+
+}
+
+
+.user-avatar-image{
+    width: 25px;
+    border-radius: 50%;
+    background-color: none;
+    margin-right: 15px;
+}
+
+.author-username{
+    font-weight: 600;
+    font-size: 14px;
+    font-family: Lato;
+}
+
+.comment-body{
+    font-family: Lato;
+    font-weight: 300;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+}

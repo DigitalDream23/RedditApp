@@ -1,15 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import './Card.css';
 import {selectTargetSubredditIcon} from '../SubReddits/SubRedditsSlice';
-import { Comment } from "../Comment/Comment";
 import { fetchPostComments } from "../Reddit/RedditSlice";
+import {Comments} from '../Comments/Comments';
+import { clearComments } from "../Reddit/RedditSlice";
 
 
 
-export const Card = ({post, onToggleComments}) =>{
+export const Card = ({post}) =>{
     const dispatch = useDispatch();
     const currentSubreddit = useSelector(state =>state.reddit.currentSubreddit)
     const subreddits = useSelector(state=>state.subreddits.subreddits);
@@ -17,7 +17,14 @@ export const Card = ({post, onToggleComments}) =>{
     selectTargetSubredditIcon(state, currentSubreddit));
     const comments = useSelector(state=>state.reddit.comments)
 
-  
+
+useEffect(()=>{
+    dispatch(clearComments())
+}, [subreddits])
+
+const onToggleCommments = (postId) => {
+    dispatch(fetchPostComments(postId))
+};
 
 
 return(
@@ -48,13 +55,11 @@ return(
     </div>
     <button 
     className="comments-button"
-    onClick={()=>onToggleComments(post.id)}
+    onClick={()=>onToggleCommments(post.id)}
     >Comments<div className="line-divide"> | </div> {post.num_comments}
     </button>
     <div className="comment-list">
-        {comments.map((comment)=>{
-            return <div>{comment.author}</div>
-        })}
+       <Comments comments={comments}/>
     </div>
     </article>
 )
