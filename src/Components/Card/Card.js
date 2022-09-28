@@ -1,30 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import './Card.css';
 import {selectTargetSubredditIcon} from '../SubReddits/SubRedditsSlice';
 import { fetchPostComments } from "../Reddit/RedditSlice";
 import {Comments} from '../Comments/Comments';
-import { clearComments } from "../Reddit/RedditSlice";
+
 
 
 
 export const Card = ({post}) =>{
     const dispatch = useDispatch();
-    const currentSubreddit = useSelector(state =>state.reddit.currentSubreddit)
+    const currentSubreddit = useSelector(state => state.reddit.currentSubreddit)
     const subreddits = useSelector(state=>state.subreddits.subreddits);
     const icon = useSelector((state) =>
     selectTargetSubredditIcon(state, currentSubreddit));
-    const comments = useSelector(state=>state.reddit.comments)
+    const [comments, setComments] = useState(null)
 
 
-useEffect(()=>{
-    dispatch(clearComments())
-}, [subreddits])
 
-const onToggleCommments = (postId) => {
-    dispatch(fetchPostComments(postId))
-};
+
+const onToggleCommments =
+        async (id) => {
+        const response = await fetch(
+            `https://www.reddit.com/comments/${id}.json`
+        );
+        const jsonResponse = await response.json();
+        console.log(jsonResponse)
+        const comments = jsonResponse[1].data.children.map(comment=> comment.data)
+        console.log(comments);
+        setComments(comments);
+      };
+
+    const onClear=()=>{
+        setComments(null)
+    };
+
 
 
 return(
@@ -53,13 +64,13 @@ return(
         
     </video></div> : '' }
     </div>
-    <button 
+    <div className="comment-list">
+       {comments ? <div><button onClick={()=>{onClear()}} className="clear-button">clear</button><Comments comments={comments}/></div> : <button 
     className="comments-button"
     onClick={()=>onToggleCommments(post.id)}
     >Comments<div className="line-divide"> | </div> {post.num_comments}
-    </button>
-    <div className="comment-list">
-       <Comments comments={comments}/>
+    </button>}
+       
     </div>
     </article>
 )

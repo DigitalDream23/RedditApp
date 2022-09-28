@@ -12,7 +12,7 @@ function App() {
       </nav>
       <div className='main-media'>
       <Reddit />
-      <SubReddits />
+      <SubReddits className="subreddits-section"/>
       </div>
     </div>
   );

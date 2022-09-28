@@ -10,29 +10,22 @@ export const fetchSubredditPosts = createAsyncThunk('reddit/getSubredditPosts',
     });
 
 
-export const fetchPostComments = createAsyncThunk('reddit/getPostComments',
-async(id)=>{
-    const response = await fetch(`https://www.reddit.com/comments/${id}.json`);
-    const json = await response.json();
-    return json[1].data.children.map(comment=> comment.data)
-})
 
-export const fetchSearchResults = createAsyncThunk('reddit/getSearchResults', 
-async (searchTerm) => {
-    const response = await fetch(`https://www.reddit.com/search.json?q=${searchTerm}`);
-    const json = await response.json();
-    return json[1].data.children;
-});
+export const fetchSearchResults = createAsyncThunk('search/getResults',
+    async (searchTerm) => {
+        const response = await fetch(`https://www.reddit.com/search.json?q=${searchTerm}`);
+        const json = await response.json();
+        return json.data.children.map(post => post.data);
+    }
+);
 
 
 const redditSlice = createSlice({
     name: 'reddit',
     initialState:{
-        posts:[],
-        comments:[],
-        displayComments:[],
+        posts: null,
         searchTerm:'',
-        currentSubreddit:'AskReddit',
+        currentSubreddit:'worldnews',
         isLoading: false,
         hasError: false,
         isLoadingComments: false,
@@ -50,17 +43,6 @@ const redditSlice = createSlice({
         },
         clearSearchTerm: (state)=>{
             state.searchTerm = ''
-        },
-        setComments:(state, action)=>{
-            state.comments = action.payload
-        },
-        setDisplayComments: (state, action)=>{
-            state.displayComments=action.payload
-        },
-        clearComments: (state)=>{
-            state.comments=[];
-            state.displayComments=[];
-
         }
     },
     extraReducers:{
@@ -91,19 +73,6 @@ const redditSlice = createSlice({
         [fetchSearchResults.rejected]:(state)=>{
             state.isLoading = false;
             state.hasError = true;
-        },
-        [fetchPostComments.pending]:(state)=>{
-            state.isLoadingComments = true;
-            state.hasErrorComments = false;
-        },
-        [fetchPostComments.fulfilled]:(state, action)=>{
-            state.isLoadingComments = false;
-            state.hasErrorComments = false;
-            state.comments = action.payload;
-        },
-        [fetchPostComments.rejected]:(state)=>{
-            state.isLoadingComments = false;
-            state.hasErrorComments = true;
         }
     }
 })
@@ -114,8 +83,8 @@ export const {
     setCurrentSubreddit,
     setSearchTerm,
     clearSearchTerm,
-    setDisplayComments,
-    clearComments
+    
+
     
   } = redditSlice.actions;
 

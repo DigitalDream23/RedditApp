@@ -1,7 +1,6 @@
-import { isContentEditable } from "@testing-library/user-event/dist/utils";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchTerm, clearSearchTerm, fetchSearchResults } from "../Reddit/RedditSlice";
+import { setSearchTerm, fetchSearchResults } from "../Reddit/RedditSlice";
 import './header.css';
 
 
@@ -14,6 +13,7 @@ const posts = useSelector(state=>state.reddit.posts)
 console.log(searchTerm)
 
 const onHandleSubmit=(e)=>{
+    document.querySelectorAll('input').value=''
     e.preventDefault();
     dispatch(fetchSearchResults(searchTerm));
 }
@@ -33,12 +33,11 @@ return(
                 <img src='/Resources/search-icon.svg'/>
             </label>
             <input 
+            value={searchTerm}
             placeholder="Search Reddit"
             onChange={(e)=>dispatch(setSearchTerm(e.target.value))}
             id="search-bar"
             />
-            <button onClick={()=> dispatch(clearSearchTerm())}>Clear</button>
-            <button type="submitt" id="submit-button" onClick={onHandleSubmit}>Submit</button>
         </form>
         
     </div>
