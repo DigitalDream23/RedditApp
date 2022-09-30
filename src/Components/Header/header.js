@@ -5,7 +5,7 @@ import './header.css';
 
 
 
-export const Header=()=>{
+export const Header=({visibleSubMenu, setVisibility})=>{
 
 const dispatch = useDispatch();
 const searchTerm = useSelector(state=>state.reddit.searchTerm)
@@ -18,14 +18,23 @@ const onHandleSubmit=(e)=>{
     dispatch(fetchSearchResults(searchTerm));
 }
 
+
 return(
     <div className="Header">
         <div className="logo-name">
         <img 
-        src='https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png'
+        src='/Resources/reddit-logo.svg'
         alt="Reddit-Logo"
-        id="logo"></img>
-        <p>mini</p>
+        id="logo">
+        </img>
+        <p id="logo-text">
+            mini
+        </p>
+        <img src="/Resources/default-reddit-logo.png" alt="reddit-logo"
+        id="logo-mini"/>
+        </div>
+        <div className="toggle-subreddit-buttons" onClick={()=>{setVisibility()}}>
+            {!visibleSubMenu ? <img src="/Resources/burger-menu.svg" alt="Display Subreddit Menu"/> : <img src="/Resources/close-icon.svg" alt="Hide Subreddit Menu"/>}
         </div>
         <form onSubmit={onHandleSubmit} className="search-input"
         >
@@ -39,7 +48,6 @@ return(
             id="search-bar"
             />
         </form>
-        
     </div>
 )
 }

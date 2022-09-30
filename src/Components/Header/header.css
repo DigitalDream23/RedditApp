@@ -5,18 +5,21 @@
     position:relative;
     margin-bottom: 30px;
     display: flex;
-    align-items: center;
+    align-items:center;
+    justify-content: space-between;
 }
 
 
 .logo-name{
     display: flex;
-    justify-content: center;
-    margin-left: 20px;
-    float: left;
     margin-left: 20px;
     align-items: center;
     font-family: roboto;
+}
+
+#logo-mini{
+    width: 28px;
+    display: none;
 }
 
 .search-input{
@@ -31,9 +34,20 @@
     z-index: 1;
 }
 
+.toggle-subreddit-buttons{
+    display: flex;
+    margin-right: 20px;
+    position:relative
+}
+
 .search-input:hover{
     border: 2px lightblue;
     border-style: solid;
+}
+
+.toggle-subreddit-buttons{
+    float: right;
+    display: none;
 }
 
 #search-bar{
@@ -49,5 +63,36 @@
 
 #logo{
     width: 100px;
-    margin-right: 5px;
+    margin-right:-6px;
+    padding: 0px;
+}
+
+@media only screen and (max-width: 640px) {
+   .Header{
+    margin-bottom: 0px;
+   }
+   
+    .toggle-subreddit-buttons{
+        display:block;
+    }
+
+    #logo{
+        display: none;
+    }
+
+    #logo-text{
+        display: none;
+    }
+
+    #logo-mini{
+        display: block;
+    }
+
+    .search-input{
+        left: 26%;
+    }
+
+    #search-bar{
+        width: 200px;
+    }
 }

@@ -11,5 +11,31 @@
 .subreddit-source-title{
     margin-bottom: 20px;
     font-family: Lato;
+    color: lightslategray;
+}
+.loading-logo{
+    font-size: 20px;
+    color: lightslategray;
+    justify-content: center;
+    justify-items: center;
+}
+.tryagain-logo{
+    font-size: 20px;
+    color: lightslategray;
+    justify-content: center;
+    justify-items: center;
 }
 
+@media only screen and (max-width: 640px) {
+    .posts-content{
+        margin-top: 15px;
+        margin-right: 0px;
+    }
+
+    .subreddit-source-title{
+        margin-bottom: 20px;
+        font-family: Lato;
+        color: lightslategray;
+        font-size: 20px;
+    }
+}

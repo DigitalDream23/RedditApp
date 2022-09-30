@@ -26,9 +26,9 @@ const onHandleSubmit=(e)=>{
 
 
 if(isLoading){
-    return <h1>Loading...</h1>
+    return <h1 className="loading-logo">Loading...</h1>
 }if(hasError){
-    return <h1>Try Again</h1>
+    return <h1 className="tryagain-logo">Try Again</h1>
 }
 else {
     return(

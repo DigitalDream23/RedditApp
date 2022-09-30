@@ -7,18 +7,29 @@ import './SubReddits.css';
 
 
 
-const SubReddits = () =>{
+const SubReddits = ({visibleSubMenu, setVisibleSubMenu}) =>{
     const dispatch = useDispatch();
     const subreddits = useSelector(state => state.subreddits.subreddits);
     const currentSubreddit = useSelector(state => state.reddit.currentSubreddit);
     const isLoading = useSelector(state => state.subreddits.isLoading);
     const error = useSelector(state => state.subreddits.error);
+    const[width, setWidth] = useState(window.innerWidth)
     
     useEffect(()=>{
         dispatch(fetchSubreddits())
     },[dispatch]);
 
 
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    });
+    
+   
+  
 return(
     <div className="subreddits-section">
     <h2 className="subreddits-source-title">Subreddits</h2>

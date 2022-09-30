@@ -48,6 +48,7 @@
     width: auto;
     display: flex;
     justify-content: center;
+    max-height: 600px;
 }
 
 .post-media{
@@ -55,6 +56,7 @@
     max-width: 600px;
     margin-top: 15px;
     justify-items: center;
+    object-fit: cover;
 }
 
 .post-video{
@@ -62,7 +64,6 @@
     max-width: 600px;
     max-height: 400px;
     margin-top: 15px;
-
     justify-items: center;
 }
 
@@ -109,5 +110,16 @@ margin-bottom: 0px;
     margin-left: 10px;
     margin-right: 10px;
     color: white;
+}
+
+@media only screen and (max-width: 640px) {
+    .post-title{
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .subreddit-avatar{
+        width: 25px;
+    }
 }
 

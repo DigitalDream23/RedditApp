@@ -43,6 +43,7 @@
 .subreddits-source-title{
     margin-bottom: 20px;
     font-family: Lato;
+    color: lightslategray
 }
 
 .current-subreddit{
@@ -65,3 +66,20 @@
     margin-right: 20px;
 }
 
+@media only screen and (max-width: 640px) {
+    .subreddits-source-title{
+        display: none;
+    }
+
+    .subreddits-list{
+        position:absolute;
+        display: block;
+        overflow-y: scroll;
+        z-index: 3;
+        background-color: lightgray;
+        border-radius: 0%;
+    }
+
+
+    
+}

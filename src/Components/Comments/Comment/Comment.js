@@ -16,7 +16,7 @@ return(
         >{comment.author}</p>
         </div>
         <div className="comment-body">
-            body={comment.body}
+            {comment.body}
         </div>
     </div>
 )

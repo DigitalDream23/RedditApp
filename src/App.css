@@ -11,7 +11,16 @@
 }
 
 @media only screen and (width < 640px) {
-  .subreddits-section {
-      display: none;
+ 
+  .subreddits-section{
+    position: absolute;
+    right: 220px;
+  }
+  .reddit-section{
+    position:relative;
+  }
+  .main-media{
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
