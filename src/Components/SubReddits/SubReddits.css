@@ -79,7 +79,9 @@
         z-index: 3;
         background-color: lightgray;
         border-radius: 0%;
-        max-height: 600px;
+        max-height: 700px;
+        opacity: .9;
+        
     }
 
 
