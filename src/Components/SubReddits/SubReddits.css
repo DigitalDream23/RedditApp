@@ -43,7 +43,8 @@
 .subreddits-source-title{
     margin-bottom: 20px;
     font-family: Lato;
-    color: lightslategray
+    color: lightslategray;
+    font-size: 20px;
 }
 
 .current-subreddit{

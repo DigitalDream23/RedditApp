@@ -36,8 +36,14 @@
 .comment-body{
     font-family: Lato;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 17px;
     padding-top: 10px;
     padding-bottom: 25px;
     overflow: hidden;
+}
+
+@media only screen and (max-width: 640px) {
+    .comment-body{
+        font-size: 14px;
+    }
 }

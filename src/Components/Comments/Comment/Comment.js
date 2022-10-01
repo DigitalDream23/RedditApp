@@ -1,8 +1,11 @@
 import React from "react";
 import '../Comment.css'
 
-
 export const Comment=({comment})=>{
+
+
+   
+  
 return(
 
     <div className="comment">
@@ -15,6 +18,7 @@ return(
         className="author-username"
         >{comment.author}</p>
         </div>
+        <div>{comment.created_utc}</div>
         <div className="comment-body">
             {comment.body}
         </div>

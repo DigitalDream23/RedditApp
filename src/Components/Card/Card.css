@@ -23,6 +23,7 @@
     align-items:center;
     font-family: Lato;
     font-size: 12px;
+    justify-content: space-between;
 }
 
 .source-align-left{
