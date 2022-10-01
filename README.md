@@ -3,8 +3,8 @@
 This React-Redux web recreates part of the reddit enviroment making use of the Reddit API. It allows users to navigate through popular subreddits along with their popular posts, search for posts about anything and view post comments.
 
 ## Content
-[Live Version App](https://bucolic-douhua-981cd4.netlify.app);
-[Repo](https://github.com/DigitalDream23/myredditapp)
+[Live Version App](https://bucolic-douhua-981cd4.netlify.app)./
+[Repo](https://github.com/DigitalDream23/myredditapp).
 
 ## Technologies
 
