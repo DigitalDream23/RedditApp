@@ -18,7 +18,6 @@ return(
         className="author-username"
         >{comment.author}</p>
         </div>
-        <div>{comment.created_utc}</div>
         <div className="comment-body">
             {comment.body}
         </div>
